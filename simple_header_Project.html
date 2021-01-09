@@ -1,0 +1,139 @@
+<?php
+	//this file is the messiest as I'm constantly adding, changing and removing from this file
+	//more often than the others
+	
+	//Sorry about the mess, but I left a lot of stuff in comments just in case we use it later
+	//Also, don't mind its appearance too much, as we can always modify the colors and such
+	
+	//Another also, don't mind the message that appears when you register or log in beneath the navbar
+	//I put that there to just give myself a idea of whether what I was implementing worked or not
+	
+	//P.s : mind the file paths, I organized the, the way Tania had them on drive, but it quickly became
+	//complex with all the different combinations for a path, so i skipped those for now
+	
+	//Last thing, if you both see anything that you can improve, please dont hesitate to do so,
+	//but make sure we all know what has changed no matter how seemingly insignificant
+	
+	
+	//This is the most annoying file of them all
+	//I imagine most of the changes will be for this file because of all the locations that we might have to changed
+	// My apologies and condolences :(
+	
+	$current_page = $_SESSION['current_page'];
+	$page_name = $_SESSION['page_name'];
+	
+	if(isset($_SESSION['name'])) {
+		$username = $_SESSION['name'];
+	}
+	else {
+		$username = "none";
+	}
+	
+	include ("C:/Users/drtrt/xampp/dbconnect/dbconnect.inc.php"); //location may vary
+
+?>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title><?php echo $page_name;?> </title>
+
+    <!-- Bootstrap -->
+    <link rel= "stylesheet " href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+  </head>
+  <body>
+	<main>
+		<div>
+	
+			<nav class="navbar navbar-fixed-top navbar-inverse">
+				<div class = "container-fluid">
+					<div class = "navbar-header">
+						<a class = "navbar-brand" href = "index_Project.php"> Welcome! </a>
+					</div>
+					<ul class = "nav navbar-nav">
+						
+						<li class = "active"> <!-- For Login function -->
+							<?php
+								if($current_page == "login" && isset($_SESSION['name']) && $username != "incorrect"){
+									echo '<a class = "navbar-brand" href = "#1"> Logged In';
+								}
+								else if($current_page == "login") {
+									echo '<a class = "navbar-brand" href = "login_form_Project.php"> Login'; 
+								}
+								else if (isset($_SESSION['name']) && $username != "incorrect"){
+									echo '<a class = "navbar-brand" href = "#2"> Logged In';
+								}
+								else {
+									echo '<a class = "navbar-brand" href = "login_form_Project.php"> Login';} //have to disable this link after logged in to preb=vent errors, possibly create a simple logout button(optional)
+							?></a></li>
+							
+						<li> <!-- For Register function -->
+							<?php
+								if($current_page == "register" && isset($_SESSION['name']) && $username != "incorrect"){
+									echo '<a class = "navbar-brand" href = "#3"> Registered ';
+								}
+								else if($current_page == "register") {
+									echo '<a class = "navbar-brand" href = "register_form_Project.php"> Register'; 
+								}
+								else if (isset($_SESSION['name']) && $username != "incorrect"){
+									echo '<a class = "navbar-brand" href = "#4"> Registered';
+								}
+								else {
+									echo '<a class = "navbar-brand" href = "register_form_Project.php"> Register';} 
+								?></a></li>
+								
+						<li> <!-- For Forum function -->
+							<?php
+								if($current_page == "forum" && isset($_SESSION['name']) && $username != "incorrect"){
+									echo '<a class = "navbar-brand" href = "threads_Project.php"> Forums1 ';
+								}
+								else if($current_page == "forum" && !isset($_SESSION['name'])) {
+									echo '<a class = "navbar-brand" href = "#5"> Forums'; 
+								}
+								else if (isset($_SESSION['name'])){
+									echo '<a class = "navbar-brand" href = "threads_Project.php"> Forums2 ';
+								}
+								else {
+									echo '<a class = "navbar-brand" href = "threads_Project.php"> Forums3';} 
+								?></a></li>
+							
+							<?php
+								if(isset($_SESSION['name']) && $username != "incorrect") {
+									echo ' <li><a class = "navbar-brand" href = "myConvos_Project.php"> My Posts </a></li>	';
+								}
+							?>
+							
+							<?php
+								if(isset($_SESSION['name']) && $username != "incorrect") {
+									echo ' <li><a class = "navbar-brand" href = "contact_form_Project.php"> Contact Us! </a></li>	';
+								}
+							?>
+							
+							<?php
+								if(isset($_SESSION['name']) && $username != "incorrect") {
+									echo ' <li class = "active"><a class = "navbar-brand" href = "logout_Project.php"> Logout </a></li>	';
+								}
+							?>
+							
+					</ul>
+				</div>
+			</nav>
+		</div>
+		
+		<div style = "background-color: purple; min-height: 100%;" class = "jumbotron">
+				<div class = "container">
+					<div class = "row">
+						<div style = "background-color: gray ;" class = "jumbotron text-center col-md-12" >
+							<h1>Our Forum </h1>
+							<h3> Currently at: <?php echo $current_page; ?></h3>
+						</div>
+					
+						<div style = "background-color: silver;" class = "jumbotron text-center col-md-12" >
+							<div class = "boxsizingBorder" align = "center">
+							<h4> 
+				
